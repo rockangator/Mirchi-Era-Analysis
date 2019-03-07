@@ -12,7 +12,6 @@ def annexure_1(df, date1,date2,artm1,artm2):
     year_list =sorted(df['Era'].dropna().unique().tolist())
     year_list = year_list[::-1]
     #print(year_list)
-    language_list = df['Language'].dropna().unique().tolist()
     #print(language_list)
     radio_list = df['Radio'].unique().tolist()
     #datafr.listname=len(radio_list)
@@ -23,12 +22,14 @@ def annexure_1(df, date1,date2,artm1,artm2):
     #print(date_list)
     result = pd.DataFrame()
     
-    length = len(language_list)
+    
     
     for radio in radio_list:
         
         radio_df = df.loc[df['Radio'] == radio]
-        
+        language_list = radio_df['Language'].dropna().unique().tolist()
+        length = len(language_list)
+        print(language_list)
         #creating main df
         #print("\nName of Radio:",radio)
         perc_sum = []
@@ -123,7 +124,7 @@ def annexure_1(df, date1,date2,artm1,artm2):
                 if(language_total_sum == 0):
                     per_song_list.append(0)
                 else:
-                    per_song_list.append(round((no_of_songs_list[i]/language_total_sum)*100,2))
+                    per_song_list.append(round((no_of_songs_list[i]/language_total_sum)*100,1))
                 perc_sum[i] = perc_sum[i] + per_song_list[i]
             per_song_list=[str(x)+'%' for x in per_song_list]
             data_frame_2[year] = per_song_list
